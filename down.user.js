@@ -5,6 +5,7 @@
 // @version      0.2
 // @author       mininb666 https://greasyfork.org/zh-CN/users/822325-mininb666 / dsy4567 https://github.com/dsy4567
 // @license      GPL-3.0
+// @run-at       document-start
 
 // @match        *://*.4399.com/*
 // @match        *://*.7k7k.com/*
@@ -26,6 +27,19 @@
 // @downloadURL  https://github.com/dsy4567/Fucking-Anti-Indulgence/raw/main/down.user.js
 
 // ==/UserScript==
+
+try {
+    Object.defineProperty(window, "showBlockFlashIE", {
+        value: ()=>{},
+        writable: false,
+    });
+} catch (e) {}
+try {
+    Object.defineProperty(window, "showBlockFlash", {
+        value: ()=>{},
+        writable: false,
+    });
+} catch (e) {}
 
 // ==download.js==
 
