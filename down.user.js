@@ -2,7 +2,7 @@
 // @name         一键下载 4399, 7k7k flash游戏 + flash 播放器
 // @description  ✨一键下载 4399, 7k7k flash 游戏, 并提供 flash 播放器✨
 // @namespace    https://fcmsb250.github.io/
-// @version      0.2
+// @version      0.2.1
 // @author       mininb666 https://greasyfork.org/zh-CN/users/822325-mininb666 / dsy4567 https://github.com/dsy4567
 // @license      GPL-3.0
 // @run-at       document-start
@@ -29,13 +29,13 @@
 // ==/UserScript==
 
 try {
-    Object.defineProperty(window, "showBlockFlashIE", {
+    Object.defineProperty(unsafeWindow, "showBlockFlashIE", {
         value: ()=>{},
         writable: false,
     });
 } catch (e) {}
 try {
-    Object.defineProperty(window, "showBlockFlash", {
+    Object.defineProperty(unsafeWindow, "showBlockFlash", {
         value: ()=>{},
         writable: false,
     });
