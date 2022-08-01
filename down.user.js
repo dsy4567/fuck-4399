@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         一键下载 4399, 7k7k flash游戏 + flash 播放器
-// @description  ✨一键下载 4399, 7k7k flash 游戏, 并提供 flash 播放器✨
+// @name         一键下载 flash 游戏
+// @description  ✨一键下载 4399, 7k7k ,17yy flash 游戏, 并提供 flash 播放器✨
 // @namespace    https://fcmsb250.github.io/
 // @version      0.2.1
 // @author       mininb666 https://greasyfork.org/zh-CN/users/822325-mininb666 / dsy4567 https://github.com/dsy4567
@@ -54,16 +54,16 @@ SOFTWARE.
 
 try {
     Object.defineProperty(unsafeWindow, "showBlockFlashIE", {
-        value: ()=>{},
+        value: () => { },
         writable: false,
     });
-} catch (e) {}
+} catch (e) { }
 try {
     Object.defineProperty(unsafeWindow, "showBlockFlash", {
-        value: ()=>{},
+        value: () => { },
         writable: false,
     });
-} catch (e) {}
+} catch (e) { }
 
 // ==download.js==
 
@@ -369,6 +369,29 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
                     alert("失败");
                 }
             }
+        });
+
+        GM_registerMenuCommand("下载17yy flash 游戏", () => {
+            $.ajax({
+                url: "http://www.17yy.com/e/payapi/vip_ajax.php",
+                data: {
+                    action: "getStatus",
+                    id: 获取中间("/f/play/", ".html", location.href, "3"),
+                },
+                type: "POST",
+                dataType: "json",
+                success: function (resp) {
+                    location.href =
+                        "http://" +
+                        unsafeWindow.server +
+                        "/" +
+                        unsafeWindow.classes +
+                        "/" +
+                        unsafeWindow.date +
+                        "/" +
+                        resp.data.game_path;
+                },
+            });
         });
 
         GM_addValueChangeListener("url", (name, old_value, new_value, remote) => {
