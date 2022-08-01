@@ -3,7 +3,7 @@
 // @namespace    https://fcmsb250.github.io/
 // @version      0.4.4
 // @description  [✨荒岛求生日记 高情商聊天] 无限钻石资源精力金币嗨翻天  [🔥免广告领奖励] 不用看广告,奖励领到吐,还能自定义奖励倍数 [🚫不用下载4399在线玩] 直接拿专属礼包 [✔️修改提交分数] 0.99 秒冲榜不是梦 (慎用) [🌏修改浏览器UA] 让浏览器变成4399在线玩或4399游戏盒 [★开发者福利] 拒绝4399疯狂调试
-// @author       dsy
+// @author       dsy4567 https://greasyfork.org/zh-CN/users/822325 | https://github.com/dsy4567
 // @icon         http://4399.com/favicon.ico
 // @run-at       document-start
 // @license      MIT
@@ -28,7 +28,7 @@
 /*
 MIT License
 
-Copyright (c) 2022 dsy4567(https://github.com/dsy4567/ ; dsy4567@outlook.com)
+Copyright (c) 2022 dsy4567(https://greasyfork.org/zh-CN/users/822325 ; https://github.com/dsy4567/ ; dsy4567@outlook.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

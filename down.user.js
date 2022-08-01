@@ -3,7 +3,7 @@
 // @description  ✨一键下载 4399, 7k7k ,17yy flash 游戏, 并提供 flash 播放器✨
 // @namespace    https://fcmsb250.github.io/
 // @version      0.3
-// @author       mininb666 https://greasyfork.org/zh-CN/users/822325-mininb666 / dsy4567 https://github.com/dsy4567
+// @author       dsy4567 https://greasyfork.org/zh-CN/users/822325 | https://github.com/dsy4567
 // @license      MIT
 // @run-at       document-start
 
@@ -32,7 +32,7 @@
 /*
 MIT License
 
-Copyright (c) 2022 dsy4567(https://github.com/dsy4567/ ; dsy4567@outlook.com)
+Copyright (c) 2022 dsy4567(https://greasyfork.org/zh-CN/users/822325 ; https://github.com/dsy4567/ ; dsy4567@outlook.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
