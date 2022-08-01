@@ -2,13 +2,14 @@
 // @name         一键下载 flash 游戏
 // @description  ✨一键下载 4399, 7k7k ,17yy flash 游戏, 并提供 flash 播放器✨
 // @namespace    https://fcmsb250.github.io/
-// @version      0.2.1
+// @version      0.3
 // @author       mininb666 https://greasyfork.org/zh-CN/users/822325-mininb666 / dsy4567 https://github.com/dsy4567
 // @license      MIT
 // @run-at       document-start
 
 // @match        *://*.4399.com/*
 // @match        *://*.7k7k.com/*
+// @match        *://*.17yy.com/*
 
 // @connect      *.4399.com
 // @connect      *.7k7k.com
@@ -54,16 +55,16 @@ SOFTWARE.
 
 try {
     Object.defineProperty(unsafeWindow, "showBlockFlashIE", {
-        value: () => { },
+        value: () => {},
         writable: false,
     });
-} catch (e) { }
+} catch (e) {}
 try {
     Object.defineProperty(unsafeWindow, "showBlockFlash", {
-        value: () => { },
+        value: () => {},
         writable: false,
     });
-} catch (e) { }
+} catch (e) {}
 
 // ==download.js==
 
@@ -144,7 +145,10 @@ try {
             }
         } //end if dataURL passed?
 
-        blob = payload instanceof myBlob ? payload : new myBlob([payload], { type: mimeType });
+        blob =
+            payload instanceof myBlob
+                ? payload
+                : new myBlob([payload], { type: mimeType });
 
         function dataUrlToBlob(strUrl) {
             var parts = strUrl.split(/[:;,]/),
@@ -182,7 +186,11 @@ try {
             }
 
             // handle non-a[download] safari as best we can:
-            if (/(Version)\/(\d+)\.(\d+)(?:\.(\d+))?.*Safari\//.test(navigator.userAgent)) {
+            if (
+                /(Version)\/(\d+)\.(\d+)(?:\.(\d+))?.*Safari\//.test(
+                    navigator.userAgent
+                )
+            ) {
                 url = url.replace(/^data:([\w\/\-\+]+)/, defaultMime);
                 if (!window.open(url)) {
                     // popup blocked, offer direct download:
@@ -223,9 +231,13 @@ try {
             // handle non-Blob()+non-URL browsers:
             if (typeof blob === "string" || blob.constructor === toString) {
                 try {
-                    return saver("data:" + mimeType + ";base64," + self.btoa(blob));
+                    return saver(
+                        "data:" + mimeType + ";base64," + self.btoa(blob)
+                    );
                 } catch (y) {
-                    return saver("data:" + mimeType + "," + encodeURIComponent(blob));
+                    return saver(
+                        "data:" + mimeType + "," + encodeURIComponent(blob)
+                    );
                 }
             }
 
@@ -242,6 +254,18 @@ try {
 
 // ==/download.js==
 
+var 正在下载 = 0;
+
+function 准备下载() {
+    if (正在下载) throw alert("还有游戏正在下载, 请稍后再试");
+    正在下载 = 1;
+    setTimeout(() => {
+        if (正在下载) {
+            alert("下载失败: 游戏未能在规定的时间内开始下载, 或遇到了其他问题");
+        }
+        正在下载 = 0;
+    }, 5000);
+}
 /**
  * @param {String} 开始
  * @param {String} 结束
@@ -293,26 +317,32 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
 
 (() => {
     if (self == top) {
-        GM_registerMenuCommand("注意: 请勿直接下载 h5 游戏");
+        GM_registerMenuCommand("注意: 请勿下载 h5 游戏");
         GM_registerMenuCommand("注意: 请勿在下载时同时打开其它游戏");
         GM_registerMenuCommand("注意: 建议在游戏加载完成后下载游戏");
-        GM_registerMenuCommand("注意: 若等待时间过长则说明下载失败");
+        // GM_registerMenuCommand("注意: 若等待时间过长则说明下载失败");
         GM_registerMenuCommand("----------");
         GM_registerMenuCommand("打开flash播放器", () => {
             GM_openInTab("https://fcmsb250.github.io/flash.html");
         });
 
         GM_registerMenuCommand("下载4399 flash 游戏", () => {
+            准备下载();
+
             let url = "";
             try {
-                url = document.querySelector("#flashgame > param[name='movie']").value;
+                url = document.querySelector(
+                    "#flashgame > param[name='movie']"
+                ).value;
                 if (url.includes("?")) {
                     url = 获取中间("gameswf=", ".swf", url) + ".swf";
                 }
             } catch (e) {
                 console.error(e);
                 try {
-                    url = document.querySelector("#swf1 > param[name='movie']").value;
+                    url = document.querySelector(
+                        "#swf1 > param[name='movie']"
+                    ).value;
 
                     if (url.includes("?")) {
                         url = 获取中间("gameswf=", ".swf", url) + ".swf";
@@ -320,6 +350,11 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
                 } catch (e) {
                     console.error(e);
                 }
+            }
+            if (unsafeWindow._strGamePath.includes(".swf")) {
+                正在下载 = 0;
+                location.href =
+                    unsafeWindow.webServer + unsafeWindow._strGamePath;
             }
             if (url) {
                 if (
@@ -329,7 +364,11 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
                         url.substring(0, 8) == "https://"
                     )
                 ) {
-                    url = location.href.substring(0, location.href.lastIndexOf("/") + 1) + url;
+                    url =
+                        location.href.substring(
+                            0,
+                            location.href.lastIndexOf("/") + 1
+                        ) + url;
                 }
                 GM_setValue("url", url);
             } else {
@@ -339,6 +378,8 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
         });
 
         GM_registerMenuCommand("下载7k7k flash 游戏", () => {
+            准备下载();
+
             try {
                 let url = document.querySelector("#gameobj").src;
                 if (url == location.href || !url) {
@@ -353,10 +394,12 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
                     //同步请求
                     $.ajaxSettings.async = false;
                     $.get(
-                        "http://www.7k7k.com/open_api/request?action=Flash.Game&game=" + game_id,
+                        "http://www.7k7k.com/open_api/request?action=Flash.Game&game=" +
+                            game_id,
                         function (data) {
                             try {
                                 game_path = JSON.parse(data).result.url;
+                                正在下载 = 0;
                                 location.href = game_path;
                             } catch (e) {
                                 alert("失败");
@@ -366,12 +409,14 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
                     $.ajaxSettings.async = true;
                 } catch (e) {
                     console.error(e);
-                    alert("失败");
+                    console.log("失败");
                 }
             }
         });
 
         GM_registerMenuCommand("下载17yy flash 游戏", () => {
+            准备下载();
+
             $.ajax({
                 url: "http://www.17yy.com/e/payapi/vip_ajax.php",
                 data: {
@@ -381,64 +426,89 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
                 type: "POST",
                 dataType: "json",
                 success: function (resp) {
-                    location.href =
-                        "http://" +
-                        unsafeWindow.server +
-                        "/" +
-                        unsafeWindow.classes +
-                        "/" +
-                        unsafeWindow.date +
-                        "/" +
-                        resp.data.game_path;
+                    if (resp?.data?.game_path) {
+                        正在下载 = 0;
+                        location.href =
+                            "http://" +
+                            unsafeWindow.server +
+                            "/" +
+                            unsafeWindow.classes +
+                            "/" +
+                            unsafeWindow.date +
+                            "/" +
+                            resp.data.game_path;
+                    }
                 },
             });
         });
 
-        GM_addValueChangeListener("url", (name, old_value, new_value, remote) => {
-            location.href = new_value;
-        });
+        GM_addValueChangeListener(
+            "url",
+            (name, old_value, new_value, remote) => {
+                if (!正在下载) return;
+                正在下载 = 0;
+                location.href = new_value;
+            }
+        );
     } else {
-        if (location.href.includes("4399") && location.href.includes("upload_swf")) {
-            GM_addValueChangeListener("down4399", (name, old_value, new_value, remote) => {
-                let url = "";
-                try {
-                    url = document.querySelector("#flashgame > param[name='movie']").value;
-                    if (url.includes("?")) {
-                        url = 获取中间("gameswf=", ".swf", url) + ".swf";
-                    }
-                } catch (e) {
-                    console.error(e);
+        if (
+            location.href.includes("4399") &&
+            location.href.includes("upload_swf")
+        ) {
+            GM_addValueChangeListener(
+                "down4399",
+                (name, old_value, new_value, remote) => {
+                    let url = "";
                     try {
-                        url = document.querySelector("#swf1 > param[name='movie']").value;
-
+                        url = document.querySelector(
+                            "#flashgame > param[name='movie']"
+                        ).value;
                         if (url.includes("?")) {
                             url = 获取中间("gameswf=", ".swf", url) + ".swf";
                         }
                     } catch (e) {
                         console.error(e);
+                        try {
+                            url = document.querySelector(
+                                "#swf1 > param[name='movie']"
+                            ).value;
+
+                            if (url.includes("?")) {
+                                url =
+                                    获取中间("gameswf=", ".swf", url) + ".swf";
+                            }
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }
+                    if (url) {
+                        if (
+                            !(
+                                url.substring(0, 2) == "//" ||
+                                url.substring(0, 7) == "http://" ||
+                                url.substring(0, 8) == "https://"
+                            )
+                        ) {
+                            url =
+                                location.href.substring(
+                                    0,
+                                    location.href.lastIndexOf("/") + 1
+                                ) + url;
+                        }
+                        GM_setValue("url", url);
+                    } else {
+                        console.log("失败");
                     }
                 }
-                if (url) {
-                    if (
-                        !(
-                            url.substring(0, 2) == "//" ||
-                            url.substring(0, 7) == "http://" ||
-                            url.substring(0, 8) == "https://"
-                        )
-                    ) {
-                        url = location.href.substring(0, location.href.lastIndexOf("/") + 1) + url;
-                    }
-                    GM_setValue("url", url);
-                } else {
-                    console.log("失败");
-                }
-            });
+            );
         }
     }
 
     if (
         location.pathname.includes(".swf") &&
-        !document.documentElement.innerHTML.includes("was not found on this server.")
+        !document.documentElement.innerHTML.includes(
+            "was not found on this server."
+        )
     ) {
         download(location.href);
         return;
