@@ -4,7 +4,7 @@
 // @namespace    https://fcmsb250.github.io/
 // @version      0.2.1
 // @author       mininb666 https://greasyfork.org/zh-CN/users/822325-mininb666 / dsy4567 https://github.com/dsy4567
-// @license      GPL-3.0
+// @license      MIT
 // @run-at       document-start
 
 // @match        *://*.4399.com/*
@@ -27,6 +27,30 @@
 // @downloadURL  https://github.com/dsy4567/Fucking-Anti-Indulgence/raw/main/down.user.js
 
 // ==/UserScript==
+
+/*
+MIT License
+
+Copyright (c) 2022 dsy4567(https://github.com/dsy4567/ ; dsy4567@outlook.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 try {
     Object.defineProperty(unsafeWindow, "showBlockFlashIE", {
@@ -218,16 +242,7 @@ try {
 
 // ==/download.js==
 
-// ==Fucking-Anti-Indulgence.user.js==
-
 /**
- * @name 🎇🎇🎇防沉迷减点料🎇🎇🎇
- * @author mininb666 https://greasyfork.org/zh-CN/users/822325-mininb666 / dsy4567 https://github.com/dsy4567
- * @license GPL-3.0
- */
-
-/**
- *
  * @param {String} 开始
  * @param {String} 结束
  * @param {String} 值

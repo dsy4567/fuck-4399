@@ -6,7 +6,7 @@
 // @author       dsy
 // @icon         http://4399.com/favicon.ico
 // @run-at       document-start
-// @license      GPL-3.0
+// @license      MIT
 
 // @include      *://*/*
 // 鬼知道哪个地方有4399的API
@@ -24,6 +24,30 @@
 // @downloadURL  https://github.com/dsy4567/Fucking-Anti-Indulgence/raw/main/noads.user.js
 
 // ==/UserScript==
+
+/*
+MIT License
+
+Copyright (c) 2022 dsy4567(https://github.com/dsy4567/ ; dsy4567@outlook.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 // 感谢这个网站, 让我顺利制作出这个脚本 --> https://open.4399.cn/console/doc
 
@@ -66,8 +90,14 @@ function 激励广告奖励翻几倍() {
 if (location.host == ("szhong.4399.com" || "sxiao.4399.com")) {
     // 荒岛求生日记
     if (unsafeWindow.localStorage.getItem("Idle-Arks-Build-At-Sea-goldCount")) {
-        unsafeWindow.localStorage.setItem("Idle-Arks-Build-At-Sea-goldCount", 999999999999999);
-        unsafeWindow.localStorage.setItem("Idle-Arks-Build-At-Sea-moodCount", 999999999999999);
+        unsafeWindow.localStorage.setItem(
+            "Idle-Arks-Build-At-Sea-goldCount",
+            999999999999999
+        );
+        unsafeWindow.localStorage.setItem(
+            "Idle-Arks-Build-At-Sea-moodCount",
+            999999999999999
+        );
     }
 
     // 高情商聊天
@@ -115,20 +145,38 @@ function 去他的广告和防沉迷() {
 
                 if (typeof 回调 === "function") {
                     var _激励广告奖励翻几倍 = 激励广告奖励翻几倍();
-                    for (let i = 0; i < _激励广告奖励翻几倍; i++) {
+                    // 专门照顾 我怕你个鬼 游戏
+                    if (
+                        location.href.includes(
+                            "https://sda.4399.com/4399swf/upload_swf/ftp39/cwb/20220720/04/gameIndex.html"
+                        )
+                    ) {
                         回调({
                             code: 10000,
                             message: "开始播放",
                         });
-                        回调({
-                            code: 10001,
-                            message: "播放结束",
-                        });
+                        alert("请放下您的鼠标键盘或手机, 然后啥都不要动, 静静地等待5秒");
+                        setTimeout(() => {
+                            回调({
+                                code: 10001,
+                                message: "播放结束",
+                            });
+                        }, 5000);
+                    } else
+                        for (let i = 0; i < _激励广告奖励翻几倍; i++) {
+                            回调({
+                                code: 10000,
+                                message: "开始播放",
+                            });
+                            回调({
+                                code: 10001,
+                                message: "播放结束",
+                            });
 
-                        console.log("[4399增强] 已阻止广告并发放奖励");
-                        console.log("回调:", 回调);
-                        免广告次数++;
-                    }
+                            console.log("[4399增强] 已阻止广告并发放奖励");
+                            console.log("回调:", 回调);
+                            免广告次数++;
+                        }
                 } else {
                     console.log("[4399增强] 无效回调");
                 }
@@ -161,8 +209,13 @@ function 去他的广告和防沉迷() {
             };
 
             // 排行榜API
-            unsafeWindow.h5api.mySubmitRankScore = unsafeWindow.h5api.submitRankScore;
-            unsafeWindow.h5api.submitRankScore = function (排行榜id, 分数, 回调) {
+            unsafeWindow.h5api.mySubmitRankScore =
+                unsafeWindow.h5api.submitRankScore;
+            unsafeWindow.h5api.submitRankScore = function (
+                排行榜id,
+                分数,
+                回调
+            ) {
                 var 用户想要的分数 = prompt(
                     "您正在提交分数, 请在下方输入您想要的分数 (悠着点,小心封号)\n排行榜id: " +
                         排行榜id,
@@ -171,69 +224,26 @@ function 去他的广告和防沉迷() {
                 if (用户想要的分数 == null || 用户想要的分数 == "") {
                     用户想要的分数 = 分数;
                 }
-                unsafeWindow.h5api.mySubmitRankScore(排行榜id, 用户想要的分数, function (输出参数) {
-                    alert(
-                        "分数提交完毕\n状态码: " +
-                            输出参数.code +
-                            "\n消息: " +
-                            输出参数.msg +
-                            "\n历史最高分数: " +
-                            输出参数.data.score +
-                            "\n历史最高排名: " +
-                            输出参数.data.rank
-                    );
-                    回调(输出参数);
-                });
+                unsafeWindow.h5api.mySubmitRankScore(
+                    排行榜id,
+                    用户想要的分数,
+                    function (输出参数) {
+                        alert(
+                            "分数提交完毕\n状态码: " +
+                                输出参数.code +
+                                "\n消息: " +
+                                输出参数.msg +
+                                "\n历史最高分数: " +
+                                输出参数.data.score +
+                                "\n历史最高排名: " +
+                                输出参数.data.rank
+                        );
+                        回调(输出参数);
+                    }
+                );
             };
         }
     }
-
-    // (a)iwan4399.com 上引用的 ifs-web_sdk
-    // if (unsafeWindow.PageWebApiSdk) {
-    //     try {
-    //         unsafeWindow.PageWebApiSdkStyle = {};
-    //         unsafeWindow.PageWebApiSdk = {};
-    //         unsafeWindow.CountDown = {};
-    //         unsafeWindow.Tools = {};
-    //         unsafeWindow.PageWebApiSdkConf = {};
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
-    // if (unsafeWindow.PageWebPlay) {
-    //     try {
-    //         unsafeWindow.PageWebPlay = {};
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
-
-    // // web.4399.com 上引用的 fcmv2.js
-    // if (unsafeWindow.smevent) {
-    //     try {
-    //         unsafeWindow.smevent = () => {};
-    //         unsafeWindow.smevent.IEVersion = () => {};
-    //         unsafeWindow.smevent.flashChecker = function () {
-    //             return { flash: true };
-    //         };
-    //         unsafeWindow.popup = () => {};
-    //         unsafeWindow.poplist = () => {};
-    //         unsafeWindow.immedToWeb = () => {};
-    //         unsafeWindow.toweb = () => {};
-    //         unsafeWindow.exitGame = () => {};
-    //         unsafeWindow.tofcmdjs = () => {};
-    //         unsafeWindow.closePop = () => {};
-    //         unsafeWindow.playGameCountdown = () => {};
-    //         unsafeWindow.countdown = () => {};
-    //         unsafeWindow.news_handle = () => {};
-    //         unsafeWindow.heartbeat = () => {};
-    //         unsafeWindow.popwebtips = () => {};
-    //         unsafeWindow.flashpop = () => {};
-    //         unsafeWindow.a1101824 = () => {};
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
 }
 function 去他的广告和防沉迷2() {
     // h5页游
@@ -286,7 +296,9 @@ function 去他的广告和防沉迷2() {
             };
 
             // 防沉迷API
-            unsafeWindow.H5API.openVerify = H5API.verifyState = function (回调) {
+            unsafeWindow.H5API.openVerify = H5API.verifyState = function (
+                回调
+            ) {
                 if (typeof 回调 === "function") {
                     console.log("[4399增强] 正在告诉游戏玩家不是未成年");
                     回调({
@@ -381,12 +393,15 @@ if (location.host.includes("4399")) {
             GM_setValue("AD", "1");
             更新奖励倍数菜单名();
         });
-        GM_registerMenuCommand("1000倍激励广告奖励()", () => {
+        GM_registerMenuCommand("1000倍激励广告奖励(不建议使用)", () => {
             GM_setValue("AD", "1000");
             更新奖励倍数菜单名();
         });
-        GM_registerMenuCommand("自定义激励广告奖励倍数", () => {
-            let inp = prompt("请输入数字, 数字过大将导致游戏卡顿", 激励广告奖励翻几倍());
+        GM_registerMenuCommand("自定义激励广告奖励倍数(不建议使用)", () => {
+            let inp = prompt(
+                "请输入数字, 数字过大将导致游戏卡顿",
+                激励广告奖励翻几倍()
+            );
             if (isNaN(Number(inp)) || Number(inp) == 0) {
                 return alert("无效数字");
             }
@@ -399,6 +414,8 @@ if (location.host.includes("4399")) {
 }
 
 console.log(
-    "[4399增强] 脚本执行完毕, 用时" + (new Date().getTime() - D.getTime()) + "ms ",
+    "[4399增强] 脚本执行完毕, 用时" +
+        (new Date().getTime() - D.getTime()) +
+        "ms ",
     location.href
 );
