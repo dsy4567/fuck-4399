@@ -43,4 +43,4 @@
 
 # ⚖️ 许可证
 
-> 使用 [GPL-3.0](https://github.com/dsy4567/fuck-4399/blob/main/LICENSE) 许可
+> 在 [MIT](https://github.com/dsy4567/fuck-4399/blob/main/LICENSE) 许可证下获得许可
