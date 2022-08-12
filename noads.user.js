@@ -107,7 +107,7 @@ if (location.host == ("szhong.4399.com" || "sxiao.4399.com")) {
     }
 }
 
-var 我怕你个鬼_已提醒用户 = 0;
+var 延时模式_已提醒用户 = 0;
 
 var 免广告次数 = 0; // 阻止广告并发放奖励次数
 var 奖励倍数菜单名 = "当前奖励倍数: " + 激励广告奖励翻几倍();
@@ -149,6 +149,7 @@ function 去他的广告和防沉迷() {
                     var _激励广告奖励翻几倍 = 激励广告奖励翻几倍();
                     // 专门照顾 我怕你个鬼 游戏
                     if (
+                        GM_getValue("延时模式") == "1" ||
                         location.href.includes(
                             "https://sda.4399.com/4399swf/upload_swf/ftp39/cwb/20220720/04/gameIndex.html"
                         )
@@ -157,11 +158,11 @@ function 去他的广告和防沉迷() {
                             code: 10000,
                             message: "开始播放",
                         });
-                        if (!我怕你个鬼_已提醒用户) {
+                        if (!延时模式_已提醒用户) {
                             alert(
                                 "请放下您的鼠标键盘或手机, 然后啥都不要动, 静静地等待5秒, 期间游戏可能会静音"
                             );
-                            我怕你个鬼_已提醒用户 = 1;
+                            延时模式_已提醒用户 = 1;
                         }
                         setTimeout(() => {
                             回调({
@@ -383,6 +384,20 @@ if (location.host.includes("4399")) {
     }, 1500);
 
     if (self == top) {
+        GM_registerMenuCommand(
+            "延时模式(" +
+                (GM_getValue("延时模式") == "1" ? "已启用" : "已禁用") +
+                ", 广告无法跳过请尝试启用)",
+            () => {
+                if (GM_getValue("延时模式") == "1") {
+                    GM_setValue("延时模式", "0");
+                } else {
+                    GM_setValue("延时模式", "1");
+                }
+                location.reload();
+            }
+        );
+
         GM_registerMenuCommand("修改UA为4399在线玩", () => {
             GM_setValue("UA", "4399wan");
             更新ua菜单名();
