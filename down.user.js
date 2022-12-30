@@ -351,7 +351,7 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
                     console.error(e);
                 }
             }
-            if (unsafeWindow._strGamePath.includes(".swf")) {
+            if (unsafeWindow._strGamePath?.includes(".swf")) {
                 正在下载 = 0;
                 location.href =
                     unsafeWindow.webServer + unsafeWindow._strGamePath;
