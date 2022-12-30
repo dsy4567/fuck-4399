@@ -443,7 +443,7 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
         GM_addValueChangeListener(
             "url",
             (name, old_value, new_value, remote) => {
-                if (!正在下载) return;
+                if (!正在下载 || !isNaN(Number(new_value))) return;
                 正在下载 = 0;
                 GM_setValue("url", String(Math.random()))
                 location.href = new_value;
