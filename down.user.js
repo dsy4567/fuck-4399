@@ -2,7 +2,7 @@
 // @name         一键下载 flash 游戏
 // @description  ✨一键下载 4399, 7k7k ,17yy flash 游戏, 并提供 flash 播放器✨
 // @namespace    https://fcmsb250.github.io/
-// @version      0.3
+// @version      0.3.1
 // @author       dsy4567 https://greasyfork.org/zh-CN/users/822325 | https://github.com/dsy4567
 // @license      MIT
 // @run-at       document-start
