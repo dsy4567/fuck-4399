@@ -2,7 +2,7 @@
 // @name         一键下载 flash 游戏
 // @description  ✨一键下载 4399, 7k7k ,17yy flash 游戏, 并提供 flash 播放器✨
 // @namespace    https://fcmsb250.github.io/
-// @version      0.3.1
+// @version      0.3.2
 // @author       dsy4567 https://greasyfork.org/zh-CN/users/822325 | https://github.com/dsy4567
 // @license      MIT
 // @run-at       document-start
@@ -23,9 +23,6 @@
 
 // @homepageURL  https://fcmsb250.github.io/
 // @supportURL   https://github.com/dsy4567/Fucking-Anti-Indulgence/
-// @updateURL    https://github.com/dsy4567/Fucking-Anti-Indulgence/raw/main/down.user.js
-// @installURL   https://github.com/dsy4567/Fucking-Anti-Indulgence/raw/main/down.user.js
-// @downloadURL  https://github.com/dsy4567/Fucking-Anti-Indulgence/raw/main/down.user.js
 
 // ==/UserScript==
 
@@ -64,6 +61,7 @@ try {
         value: () => {},
         writable: false,
     });
+    GM_setValue("url", String(Math.random()))
 } catch (e) {}
 
 // ==download.js==
@@ -447,6 +445,7 @@ function 获取中间(开始, 结束, 值, 类型, 前面追加) {
             (name, old_value, new_value, remote) => {
                 if (!正在下载) return;
                 正在下载 = 0;
+                GM_setValue("url", String(Math.random()))
                 location.href = new_value;
             }
         );
